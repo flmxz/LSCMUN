@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMUN '26 - Bhavans Model United Nations</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-color: #3fb950;
+            --text-color: #c9d1d9;
+            --heading-color: #ffffff;
+            --border-color: #30363d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 17, 23, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--heading-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #8b949e;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Button */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            font-size: 0.9rem;
+            color: #8b949e;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">BMUN '26</div>
+        <ul>
+            <li><a href="#journey">Journey</a></li>
+            <li><a href="#councils">Councils</a></li>
+            <li><a href="#secretariat">Secretariat</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#register">Register</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Bhavans Model United Nations 2026</h1>
+        <p>Diplomacy • Leadership • Critical Thinking</p>
+        <a href="#register" class="btn">Register Now</a>
+    </section>
+
+    <section id="journey">
+        <h2>Your Journey at BMUN '26</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>01. Lead with Confidence</h3>
+                <p>Develop executive decision-making skills and guide discussions on critical global topics.</p>
+            </div>
+            <div class="card">
+                <h3>02. Speak to Inspire</h3>
+                <p>Master public speaking and construct powerful arguments to convince fellow delegates.</p>
+            </div>
+            <div class="card">
+                <h3>03. Debate with Precision</h3>
+                <p>Engage in structured parliamentary procedure and negotiate resolution papers effectively.</p>
+            </div>
+            <div class="card">
+                <h3>04. Think Critically</h3>
+                <p>Analyze complex international relations issues and synthesize balanced solutions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="councils">
+        <h2>Featured Councils</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>UNSC</h3>
+                <p>United Nations Security Council - Addressing primary security threats worldwide.</p>
+            </div>
+            <div class="card">
+                <h3>SOCHUM</h3>
+                <p>Social, Humanitarian & Cultural Committee - Tackling human rights issues.</p>
+            </div>
+            <div class="card">
+                <h3>Special Committees</h3>
+                <p>Includes FIFA, Pokemon Crisis Cabinet, FCC, and Historical Crisis Councils.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="secretariat">
+        <h2>Secretariat</h2>
+        <p>Organized by the BMUN '26 Executive Board committed to delivering an exceptional conference experience.</p>
+    </section>
+
+    <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Who is eligible?</h3>
+                <p>Students from Grades 6 to 12 are welcome to participate.</p>
+            </div>
+            <div class="card">
+                <h3>What is the dress code?</h3>
+                <p>Western Formal Attire (Suits, blazers, formal shirts, tie, formal dresses/trousers).</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="register">
+        <h2>Register</h2>
+        <p>Secure your spot as a delegate for BMUN '26.</p>
+        <a href="mailto:bmun.bis@gmail.com" class="btn">Contact to Register</a>
+    </section>
+
+    <footer>
+        <p>Bahrain Indian School | Building 109, Road 7307, Block 473, Abu Saiba, Kingdom of Bahrain</p>
+        <p>© 2026 BMUN. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
