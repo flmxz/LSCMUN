@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us & Venue | LSCMUN '26</title>
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-card-hover: #1e293b;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(11, 15, 25, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.75rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-gold);
+        }
+
+        .nav-btn {
+            background: var(--accent-blue);
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-blue-hover) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-main);
+            border-radius: 2px;
+        }
+
+        /* Layout Container */
+        section {
+            padding: 4rem 2rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding-top: 8rem;
+            padding-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Grid Layout */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.25rem;
+        }
+
+        .info-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .info-group strong {
+            display: block;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-group p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .btn {
+            padding: 0.85rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-blue);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-blue-hover);
+        }
+
+        /* Map Placeholder */
+        .map-box {
+            width: 100%;
+            height: 250px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-card);
+                padding: 1.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">LSC<span>MUN</span></a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="committees.html">Committees</a></li>
+            <li><a href="index.html#schedule">Schedule</a></li>
+            <li><a href="secretariat.html">Secretariat</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="index.html#register" class="nav-btn">Register Now</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>Contact & Conference Venue</h1>
+        <p>Get in touch with the Secretariat or find key details regarding event location and delegate assistance.</p>
+    </div>
+
+    <section>
+        <div class="contact-grid">
+            
+            <!-- Left Side: Venue & Contact Channels -->
+            <div>
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <h2>Conference Venue</h2>
+                    <div class="info-group">
+                        <strong>LSC Conference Center</strong>
+                        <p>Building 109, Academic Block A<br>Main Campus, Road 7307<br>Kingdom of Bahrain</p>
+                    </div>
+                    <div class="info-group">
+                        <strong>Transport & Directions</strong>
+                        <p>Bus routes 12 & 15 stop directly outside Gate 2. Parking is available on-site for registered faculty advisors and institutional delegations.</p>
+                    </div>
+                    
+                    <div class="map-box">
+                        [ Interactive Map Preview ]
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Direct Communication Channels</h2>
+                    <div class="info-group">
+                        <strong>General Secretariat</strong>
+                        <p><a href="mailto:secretariat@lscmun.org" style="color: var(--accent-gold); text-decoration: none;">secretariat@lscmun.org</a></p>
+                    </div>
+                    <div class="info-group">
+                        <strong>Delegate & Registration Affairs</strong>
+                        <p><a href="mailto:registration@lscmun.org" style="color: var(--accent-gold); text-decoration: none;">registration@lscmun.org</a></p>
+                    </div>
+                    <div class="info-group">
+                        <strong>Academics & Committee Questions</strong>
+                        <p><a href="mailto:academics@lscmun.org" style="color: var(--accent-gold); text-decoration: none;">academics@lscmun.org</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Contact Form -->
+            <div class="card">
+                <h2>Send an Inquiry</h2>
+                <form onsubmit="handleInquirySubmit(event)">
+                    <div class="form-group">
+                        <label>Your Full Name</label>
+                        <input type="text" required placeholder="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" required placeholder="john@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Inquiry Category</label>
+                        <select required>
+                            <option value="">Select a Category</option>
+                            <option value="Registration">Delegate / Delegation Registration</option>
+                            <option value="Committees">Committee / Country Matrix Query</option>
+                            <option value="Sponsorship">Sponsorship & Press</option>
+                            <option value="Other">General Question</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" required placeholder="e.g. Matrix Allocation Question">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Message</label>
+                        <textarea rows="5" required placeholder="Type your detailed message here..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit Inquiry</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>LSC Model United Nations '26</strong> | Official Conference Portal</p>
+        <p style="margin-top: 0.5rem;">Need urgent assistance? Contact <a href="mailto:secretariat@lscmun.org">secretariat@lscmun.org</a></p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #475569;">© LSCMUN. All rights reserved.</p>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Form Submit Handler
+        function handleInquirySubmit(event) {
+            event.preventDefault();
+            alert('Your inquiry has been submitted! The LSCMUN team will respond via email within 24 hours.');
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
