@@ -1,0 +1,2 @@
+# LSCMUN
+Website for LSCMUN
