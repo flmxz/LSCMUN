@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Code of Conduct | LSCMUN '26</title>
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-card-hover: #1e293b;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(11, 15, 25, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.75rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-gold);
+        }
+
+        .nav-btn {
+            background: var(--accent-blue);
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-blue-hover) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-main);
+            border-radius: 2px;
+        }
+
+        /* Layout Container */
+        section {
+            padding: 4rem 2rem 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding-top: 8rem;
+            padding-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Content Card */
+        .policy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .policy-card h2 {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .policy-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .policy-card ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .policy-card li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .policy-card strong {
+            color: var(--text-main);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-card);
+                padding: 1.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">LSC<span>MUN</span></a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="committees.html">Committees</a></li>
+            <li><a href="secretariat.html">Secretariat</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html#register" class="nav-btn">Register Now</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>Terms & Code of Conduct</h1>
+        <p>Conference guidelines, delegate behavioral expectations, and administrative terms of service.</p>
+    </div>
+
+    <section>
+        <!-- Code of Conduct -->
+        <div class="policy-card">
+            <h2>01. Delegate Code of Conduct</h2>
+            <p>LSCMUN is committed to creating a respectful, diplomatic, and inclusive environment. All delegates, faculty advisors, and observers are required to adhere to the following standards:</p>
+            <ul>
+                <li><strong>Diplomatic Decorum:</strong> Delegates must treat Dais members, conference staff, and fellow participants with mutual respect at all times. Personal attacks or derogatory language will result in immediate disciplinary action.</li>
+                <li><strong>Dress Code:</strong> Western Business Attire (WBA) or formal traditional national dress is mandatory during all committee sessions.</li>
+                <li><strong>Substance Policy:</strong> The possession or consumption of alcohol, tobacco, e-cigarettes, or illicit substances on conference premises is strictly prohibited and subject to immediate expulsion.</li>
+            </ul>
+        </div>
+
+        <!-- Academic Integrity -->
+        <div class="policy-card">
+            <h2>02. Academic Integrity & Plagiarism</h2>
+            <p>LSCMUN upholds strict academic standards regarding delegate work and submissions:</p>
+            <ul>
+                <li><strong>Original Work:</strong> All position papers, working papers, and draft resolutions must be the original work of the submitting delegate or delegation bloc.</li>
+                <li><strong>Plagiarism & AI Policy:</strong> Unattributed copying, pre-written resolutions drafted prior to the conference, or uncredited AI-generated text will lead to immediate disqualification from award eligibility.</li>
+            </ul>
+        </div>
+
+        <!-- Registration & Cancellation -->
+        <div class="policy-card">
+            <h2>03. Registration & Fee Policies</h2>
+            <p>Terms governing conference registration, matrix allocations, and cancellations:</p>
+            <ul>
+                <li><strong>Country Allotments:</strong> Committee and country assignments are allocated at the discretion of the Secretariat based on experience and submission timeliness.</li>
+                <li><strong>Refunds & Transfers:</strong> Registration fees are non-refundable after the official registration deadline. Delegation transfers must be requested in writing at least 14 days prior to Day 1.</li>
+            </ul>
+        </div>
+
+        <!-- Media & Privacy -->
+        <div class="policy-card">
+            <h2>04. Media Release & Privacy</h2>
+            <p>By participating in LSCMUN '26, delegates grant permission for media coverage:</p>
+            <ul>
+                <li><strong>Photography & Video:</strong> Official media staff will photograph and record committee proceedings for promotional and archival use on official channels.</li>
+                <li><strong>Data Privacy:</strong> Delegate contact details provided during registration are strictly used for conference administration and will not be shared with third parties without prior consent.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>LSC Model United Nations '26</strong> | Official Conference Portal</p>
+        <p style="margin-top: 0.5rem;">Legal & Policy Enquiries: <a href="mailto:secretariat@lscmun.org">secretariat@lscmun.org</a></p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #475569;">© LSCMUN. All rights reserved.</p>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
