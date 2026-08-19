@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delegate Resources | LSCMUN '26</title>
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-card-hover: #1e293b;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(11, 15, 25, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.75rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-gold);
+        }
+
+        .nav-btn {
+            background: var(--accent-blue);
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-blue-hover) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-main);
+            border-radius: 2px;
+        }
+
+        /* Layout Container */
+        section {
+            padding: 4rem 2rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding-top: 8rem;
+            padding-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Section Titles */
+        h2.section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        h2.section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-gold);
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+
+        /* Cards Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: transform 0.25s, border-color 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-blue);
+            background: var(--bg-card-hover);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 0.88rem;
+            transition: all 0.2s;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-blue);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-blue-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--text-muted);
+        }
+
+        /* Submission Box */
+        .submission-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .submission-box h2 {
+            font-size: 1.75rem;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+        }
+
+        .submission-box p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-card);
+                padding: 1.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">LSC<span>MUN</span></a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="committees.html">Committees</a></li>
+            <li><a href="secretariat.html">Secretariat</a></li>
+            <li><a href="resources.html" class="active">Resources</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html#register" class="nav-btn">Register Now</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>Delegate Preparation Hub</h1>
+        <p>Access background guides, parliamentary procedure rules, position paper templates, and research databases.</p>
+    </div>
+
+    <section>
+        <!-- Core Guides -->
+        <h2 class="section-title">Essential Documents</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Rules of Procedure (ROP)</h3>
+                <p>Comprehensive guide covering points, motions, caucus flow, resolution mechanics, and voting procedures.</p>
+                <a href="#" class="btn btn-primary" onclick="alert('Downloading ROP PDF...')">Download ROP (PDF)</a>
+            </div>
+
+            <div class="card">
+                <h3>Position Paper Guide</h3>
+                <p>Standardized format requirements, research guidelines, and submission instructions for award eligibility.</p>
+                <a href="#" class="btn btn-primary" onclick="alert('Downloading Position Paper Guide...')">Download Guide (PDF)</a>
+            </div>
+
+            <div class="card">
+                <h3>Resolution Writing Guide</h3>
+                <p>Learn how to draft preambulatory and operative clauses, amendments, and working papers.</p>
+                <a href="#" class="btn btn-primary" onclick="alert('Downloading Writing Guide...')">Download Guide (PDF)</a>
+            </div>
+        </div>
+
+        <!-- Research Links -->
+        <h2 class="section-title">Recommended Research Portals</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>UN Digital Library</h3>
+                <p>Access official UN documents, voting records, and historical resolution archives.</p>
+                <a href="https://digitallibrary.un.org" target="_blank" class="btn btn-outline">Visit Portal External Site</a>
+            </div>
+
+            <div class="card">
+                <h3>UN Member State Profiles</h3>
+                <p>Review foreign policy stances, bilateral agreements, and official state statements.</p>
+                <a href="https://www.un.org/en/about-us/member-states" target="_blank" class="btn btn-outline">Visit Portal External Site</a>
+            </div>
+
+            <div class="card">
+                <h3>ICJ Case Law Archive</h3>
+                <p>Essential reading material for legal delegates and Court of Justice participants.</p>
+                <a href="https://www.icj-cij.org/cases" target="_blank" class="btn btn-outline">Visit Portal External Site</a>
+            </div>
+        </div>
+
+        <!-- Position Paper Submission -->
+        <div class="submission-box">
+            <h2>Position Paper Submission Portal</h2>
+            <p>Position papers are required for all delegates seeking Best Delegate awards. Submissions close 7 days prior to Day 1 of the conference.</p>
+            <a href="mailto:academics@lscmun.org?subject=Position Paper Submission - [Delegate Name]" class="btn btn-primary">Submit Position Paper via Email</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>LSC Model United Nations '26</strong> | Official Conference Portal</p>
+        <p style="margin-top: 0.5rem;">Academic queries: <a href="mailto:academics@lscmun.org">academics@lscmun.org</a></p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #475569;">© LSCMUN. All rights reserved.</p>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
