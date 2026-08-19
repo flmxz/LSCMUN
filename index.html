@@ -64,79 +64,35 @@
         }
 
         /* Hero Section */
-        .hero {
-            text-align: center;
-            padding-top: 9rem;
-            padding-bottom: 4rem;
-        }
+      <!-- Hero / About Section -->
+    <section class="hero" id="about">
+        <span class="hero-badge">Life Sciences MUN</span>
+        <h1>2-Day Diplomatic Conference '26</h1>
+        <p>Join 500+ student delegates for an intensive two-day summit to debate critical global issues, author international resolutions, and negotiate consensus.</p>
+        <div class="hero-actions">
+            <button class="btn btn-primary" onclick="openModal()">Apply as Delegate</button>
+            <a href="committees.html" class="btn btn-outline">Explore Committees</a>
+        </div>
 
-        .hero-badge {
-            display: inline-block;
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--accent-gold);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 1.25rem;
-            text-transform: uppercase;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 1.25rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.85rem 1.8rem;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-blue);
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-blue-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--border);
-        }
-
-        .btn-outline:hover {
-            background: var(--bg-card);
-            border-color: var(--text-muted);
-        }
-
+        <div class="stats-bar">
+            <div class="stat-item">
+                <h3>6</h3>
+                <p>Committees</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Delegates</p>
+            </div>
+            <div class="stat-item">
+                <h3>2</h3>
+                <p>Conference Days</p>
+            </div>
+            <div class="stat-item">
+                <h3>12+</h3>
+                <p>Awards & Honors</p>
+            </div>
+        </div>
+    </section>
         /* Stats Bar */
         .stats-bar {
             display: grid;
