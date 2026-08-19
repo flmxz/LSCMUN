@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Committees | LSCMUN '26</title>
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-card-hover: #1e293b;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(11, 15, 25, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.75rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-gold);
+        }
+
+        .nav-btn {
+            background: var(--accent-blue);
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-blue-hover) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-main);
+            border-radius: 2px;
+        }
+
+        /* Layout Container */
+        section {
+            padding: 5rem 2rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Banner */
+        .page-header {
+            text-align: center;
+            padding-top: 8rem;
+            padding-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Controls */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
+        }
+
+        /* Committee Detailed Cards */
+        .committee-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .committee-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            transition: border-color 0.2s;
+        }
+
+        .committee-card:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .committee-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-gold);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .committee-info h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .committee-info h2::after {
+            display: none;
+        }
+
+        .agenda-title {
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .committee-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dais-box {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .dais-box h4 {
+            color: var(--accent-gold);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dais-member {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .dais-member strong {
+            color: var(--text-main);
+        }
+
+        .dais-member span {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: block;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 0.88rem;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-blue);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-blue-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--text-muted);
+        }
+
+        /* Matrix Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            max-width: 650px;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.25rem;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .matrix-table th, .matrix-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .matrix-table th {
+            background: var(--bg-dark);
+            color: var(--accent-gold);
+        }
+
+        .status-open {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .status-assigned {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        @media (max-width: 900px) {
+            .committee-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-card);
+                padding: 1.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">LSC<span>MUN</span></a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="committees.html" class="active">Committees</a></li>
+            <li><a href="index.html#schedule">Schedule</a></li>
+            <li><a href="index.html#secretariat">Secretariat</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#register" class="nav-btn">Register Now</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="page-header">
+        <h1>Committees & Agendas</h1>
+        <p>Explore our simulation councils, access background guides, and check real-time country allocations.</p>
+    </div>
+
+    <!-- Filter Section -->
+    <section>
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterCommittees('all')">All Councils</button>
+            <button class="filter-btn" onclick="filterCommittees('crisis')">Crisis & Specialized</button>
+            <button class="filter-btn" onclick="filterCommittees('ga')">General Assembly</button>
+            <button class="filter-btn" onclick="filterCommittees('legal')">Legal & Economic</button>
+        </div>
+
+        <!-- Committees List -->
+        <div class="committee-list">
+
+            <!-- UNSC -->
+            <div class="committee-card" data-category="crisis">
+                <div class="committee-info">
+                    <span class="committee-badge">Double Delegation • Advanced</span>
+                    <h2>UN Security Council (UNSC)</h2>
+                    <div class="agenda-title">Agenda: Evaluating Peacekeeping Protocols and Security Threats in Escalating Territorial Conflicts</div>
+                    <p class="committee-desc">The Security Council bears primary responsibility under the UN Charter for international peace and security. Delegates will navigate live directive updates, binding legal resolutions, and veto dynamics.</p>
+                    <div class="card-actions">
+                        <a href="#" class="btn btn-primary" onclick="alert('Background guide will download shortly.')">Download BG Guide (PDF)</a>
+                        <button class="btn btn-outline" onclick="openMatrixModal('UNSC')">View Country Matrix</button>
+                    </div>
+                </div>
+                <div class="dais-box">
+                    <div>
+                        <h4>Executive Board</h4>
+                        <div class="dais-member">
+                            <strong>Jonathan Ross</strong>
+                            <span>President</span>
+                        </div>
+                        <div class="dais-member">
+                            <strong>Elena Rostova</strong>
+                            <span>Vice President</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DISEC -->
+            <div class="committee-card" data-category="ga">
+                <div class="committee-info">
+                    <span class="committee-badge">Single Delegation • Beginner / Intermediate</span>
+                    <h2>UNGA - DISEC (First Committee)</h2>
+                    <div class="agenda-title">Agenda: Regulating Autonomous Weapons Systems & Non-Proliferation in Modern Warfare</div>
+                    <p class="committee-desc">DISEC deals with disarmament, global challenges, and threats to peace. Delegates will address the ethical, legal, and strategic implications of AI-driven combat technology.</p>
+                    <div class="card-actions">
+                        <a href="#" class="btn btn-primary" onclick="alert('Background guide will download shortly.')">Download BG Guide (PDF)</a>
+                        <button class="btn btn-outline" onclick="openMatrixModal('DISEC')">View Country Matrix</button>
+                    </div>
+                </div>
+                <div class="dais-box">
+                    <div>
+                        <h4>Executive Board</h4>
+                        <div class="dais-member">
+                            <strong>Aarav Sharma</strong>
+                            <span>Chairperson</span>
+                        </div>
+                        <div class="dais-member">
+                            <strong>Sarah Jenkins</strong>
+                            <span>Vice Chair</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNHRC -->
+            <div class="committee-card" data-category="ga">
+                <div class="committee-info">
+                    <span class="committee-badge">Single Delegation • Intermediate</span>
+                    <h2>UN Human Rights Council (UNHRC)</h2>
+                    <div class="agenda-title">Agenda: Safeguarding Fundamental Rights and Legal Protection for Climate-Displaced Populations</div>
+                    <p class="committee-desc">Addressing human rights violations and protection gaps resulting from climate emergencies, rising sea levels, and cross-border environmental migration.</p>
+                    <div class="card-actions">
+                        <a href="#" class="btn btn-primary" onclick="alert('Background guide will download shortly.')">Download BG Guide (PDF)</a>
+                        <button class="btn btn-outline" onclick="openMatrixModal('UNHRC')">View Country Matrix</button>
+                    </div>
+                </div>
+                <div class="dais-box">
+                    <div>
+                        <h4>Executive Board</h4>
+                        <div class="dais-member">
+                            <strong>Maya Lin</strong>
+                            <span>President</span>
+                        </div>
+                        <div class="dais-member">
+                            <strong>Liam O'Connor</strong>
+                            <span>Rapporteur</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historic Crisis Cabinet -->
+            <div class="committee-card" data-category="crisis">
+                <div class="committee-info">
+                    <span class="committee-badge">Personal Portfolio • Advanced</span>
+                    <h2>Historic Crisis Cabinet (HCC)</h2>
+                    <div class="agenda-title">Agenda: The 1962 Cuban Missile Crisis</div>
+                    <p class="committee-desc">Step into the shoes of key historical figures during thirteen days on the brink of nuclear war. Fast-paced crisis updates, personal directives, and secret actions apply.</p>
+                    <div class="card-actions">
+                        <a href="#" class="btn btn-primary" onclick="alert('Background guide will download shortly.')">Download BG Guide (PDF)</a>
+                        <button class="btn btn-outline" onclick="openMatrixModal('HCC')">View Portfolio Matrix</button>
+                    </div>
+                </div>
+                <div class="dais-box">
+                    <div>
+                        <h4>Executive Board</h4>
+                        <div class="dais-member">
+                            <strong>Viktor Vance</strong>
+                            <span>Crisis Director</span>
+                        </div>
+                        <div class="dais-member">
+                            <strong>Claire Sterling</strong>
+                            <span>Head of Crisis Staff</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Country Matrix Modal -->
+    <div class="modal" id="matrixModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeMatrixModal()">&times;</span>
+            <h2 id="modalCommitteeTitle" style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent-gold);">Country Matrix</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Live allotment status for this committee.</p>
+            
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Delegation / Portfolio</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="matrixTableBody">
+                    <!-- Populated via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>LSC Model United Nations '26</strong> | Official Conference Portal</p>
+        <p style="margin-top: 0.5rem;">Need help choosing a committee? <a href="mailto:secretariat@lscmun.org">Contact Academics Team</a></p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #475569;">© LSCMUN. All rights reserved.</p>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Filter Functionality
+        function filterCommittees(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const cards = document.querySelectorAll('.committee-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'grid';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Country Matrix Modal & Data
+        const matrixData = {
+            'UNSC': [
+                { country: 'United States', status: 'Assigned' },
+                { country: 'United Kingdom', status: 'Open' },
+                { country: 'France', status: 'Open' },
+                { country: 'China', status: 'Assigned' },
+                { country: 'Russian Federation', status: 'Open' },
+                { country: 'Japan', status: 'Open' },
+                { country: 'Brazil', status: 'Open' }
+            ],
+            'DISEC': [
+                { country: 'India', status: 'Open' },
+                { country: 'Germany', status: 'Assigned' },
+                { country: 'Israel', status: 'Open' },
+                { country: 'Pakistan', status: 'Open' },
+                { country: 'South Korea', status: 'Open' }
+            ],
+            'UNHRC': [
+                { country: 'Canada', status: 'Open' },
+                { country: 'Norway', status: 'Assigned' },
+                { country: 'Tuvalu', status: 'Open' },
+                { country: 'South Africa', status: 'Open' }
+            ],
+            'HCC': [
+                { country: 'John F. Kennedy (President)', status: 'Assigned' },
+                { country: 'Robert McNamara (SecDef)', status: 'Open' },
+                { country: 'Nikita Khrushchev (First Sec)', status: 'Assigned' },
+                { country: 'Anatoly Dobrynin (Ambassador)', status: 'Open' }
+            ]
+        };
+
+        function openMatrixModal(committee) {
+            document.getElementById('modalCommitteeTitle').innerText = committee + ' - Country Matrix';
+            const tbody = document.getElementById('matrixTableBody');
+            tbody.innerHTML = '';
+
+            if (matrixData[committee]) {
+                matrixData[committee].forEach(row => {
+                    const statusClass = row.status === 'Open' ? 'status-open' : 'status-assigned';
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${row.country}</td>
+                            <td class="${statusClass}">${row.status}</td>
+                        </tr>
+                    `;
+                });
+            }
+            document.getElementById('matrixModal').style.display = 'flex';
+        }
+
+        function closeMatrixModal() {
+            document.getElementById('matrixModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
