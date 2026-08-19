@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LSCMUN - Model United Nations</title>
+    <title>LSCMUN '26 | LSC Model United Nations</title>
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #151c2c;
-            --accent-color: #2563eb;
-            --accent-hover: #1d4ed8;
-            --text-color: #cbd5e1;
-            --heading-color: #ffffff;
-            --border-color: #1e293b;
-            --gold-accent: #f59e0b;
+            --bg-dark: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-card-hover: #1e293b;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
         }
 
         * {
@@ -28,9 +29,10 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Navigation */
@@ -38,9 +40,9 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(11, 15, 25, 0.9);
+            background: rgba(11, 15, 25, 0.92);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -48,279 +50,692 @@
             z-index: 1000;
         }
 
-        nav .logo {
+        .logo {
             font-size: 1.5rem;
             font-weight: 800;
             letter-spacing: 1px;
-            color: var(--heading-color);
+            color: var(--text-main);
+            text-decoration: none;
         }
 
-        nav .logo span {
-            color: var(--gold-accent);
+        .logo span {
+            color: var(--accent-gold);
         }
 
-        nav ul {
+        .nav-links {
             display: flex;
             list-style: none;
             gap: 1.75rem;
+            align-items: center;
         }
 
-        nav a {
-            color: var(--text-color);
+        .nav-links a {
+            color: var(--text-muted);
             text-decoration: none;
             font-size: 0.95rem;
             font-weight: 500;
             transition: color 0.2s;
         }
 
-        nav a:hover {
-            color: var(--gold-accent);
+        .nav-links a:hover {
+            color: var(--accent-gold);
         }
 
-        /* Hero Section */
+        .nav-btn {
+            background: var(--accent-blue);
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-blue-hover) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-main);
+            border-radius: 2px;
+        }
+
+        /* Layout Container */
         section {
             padding: 5rem 2rem 3rem;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
+        /* Hero Section */
         .hero {
             text-align: center;
             padding-top: 9rem;
-            padding-bottom: 5rem;
+            padding-bottom: 4rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-gold);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
         .hero h1 {
-            font-size: 3.25rem;
-            color: var(--heading-color);
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
         }
 
         .hero p {
-            font-size: 1.25rem;
-            color: #94a3b8;
-            max-width: 650px;
-            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
         }
 
-        /* Typography & Layout */
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.85rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-blue);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-blue-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-card);
+            border-color: var(--text-muted);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.25rem;
+            color: var(--accent-gold);
+            font-weight: 800;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Section Titles */
         h2 {
-            font-size: 2rem;
-            color: var(--heading-color);
+            font-size: 2.25rem;
+            font-weight: 800;
             margin-bottom: 1.5rem;
-            position: relative;
         }
 
         h2::after {
             content: '';
             display: block;
-            width: 50px;
+            width: 60px;
             height: 3px;
-            background: var(--gold-accent);
+            background: var(--accent-gold);
             margin-top: 0.5rem;
             border-radius: 2px;
         }
 
+        /* Cards Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
         }
 
         .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
             padding: 1.75rem;
             transition: transform 0.25s, border-color 0.25s;
         }
 
         .card:hover {
             transform: translateY(-4px);
-            border-color: var(--accent-color);
+            border-color: var(--accent-blue);
+            background: var(--bg-card-hover);
         }
 
         .card h3 {
-            color: var(--heading-color);
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
         }
 
-        .card .badge {
-            display: inline-block;
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--gold-accent);
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
+        .card .agenda {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
         }
 
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: #ffffff;
-            padding: 0.85rem 1.75rem;
-            border-radius: 8px;
-            text-decoration: none;
+        /* Schedule Timeline */
+        .schedule-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.25rem;
+            border-radius: 6px;
+            cursor: pointer;
             font-weight: 600;
-            transition: background-color 0.2s, transform 0.2s;
         }
 
-        .btn:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-2px);
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
         }
 
-        /* Contact & Footer */
-        footer {
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            padding: 2.5rem 2rem;
-            margin-top: 4rem;
+        .schedule-list {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-time {
+            min-width: 120px;
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 1.25rem 1.25rem;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        .faq-item.open .faq-question {
+            color: var(--accent-gold);
+        }
+
+        /* Registration Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            max-width: 550px;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.25rem;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
             font-size: 0.9rem;
-            color: #64748b;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         footer a {
-            color: var(--gold-accent);
+            color: var(--accent-gold);
             text-decoration: none;
         }
 
         @media (max-width: 768px) {
-            nav ul {
+            .nav-links {
                 display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-card);
+                padding: 1.5rem;
+                border-bottom: 1px solid var(--border);
             }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
             .hero h1 {
-                font-size: 2.25rem;
+                font-size: 2.5rem;
+            }
+
+            .schedule-item {
+                flex-direction: column;
+                gap: 0.25rem;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Navigation -->
     <nav>
-        <div class="logo">LSC<span>MUN</span></div>
-        <ul>
+        <a href="#" class="logo">LSC<span>MUN</span></a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
             <li><a href="#about">About</a></li>
-            <li><a href="#journey">Journey</a></li>
             <li><a href="#committees">Committees</a></li>
+            <li><a href="#schedule">Schedule</a></li>
             <li><a href="#secretariat">Secretariat</a></li>
             <li><a href="#faq">FAQ</a></li>
-            <li><a href="#register">Register</a></li>
+            <li><a href="#" class="nav-btn" onclick="openModal()">Register Now</a></li>
         </ul>
     </nav>
 
-    <section class="hero">
-        <h1>LSC Model United Nations</h1>
-        <p>Empowering global leaders through rigorous debate, strategic diplomacy, and actionable consensus.</p>
-        <a href="#register" class="btn">Apply as Delegate</a>
-    </section>
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+        <span class="hero-badge">Annual Diplomatic Conference '26</span>
+        <h1>Architecting Global Solutions Through Diplomacy</h1>
+        <p>Join 500+ student delegates to debate critical geopolitics, author international resolutions, and negotiate global consensus.</p>
+        <div class="hero-actions">
+            <button class="btn btn-primary" onclick="openModal()">Apply as Delegate</button>
+            <a href="#committees" class="btn btn-outline">Explore Committees</a>
+        </div>
 
-    <section id="journey">
-        <h2>Your Journey at LSCMUN</h2>
-        <div class="grid">
-            <div class="card">
-                <span class="badge">Pillar 01</span>
-                <h3>Strategic Debate</h3>
-                <p>Engage in high-stakes negotiations and articulate persuasive international policy positions.</p>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <h3>6</h3>
+                <p>Committees</p>
             </div>
-            <div class="card">
-                <span class="badge">Pillar 02</span>
-                <h3>Policy Crafting</h3>
-                <p>Collaborate with delegates to author comprehensive draft resolutions tackling modern global crises.</p>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Delegates</p>
             </div>
-            <div class="card">
-                <span class="badge">Pillar 03</span>
-                <h3>Diplomatic Leadership</h3>
-                <p>Master bloc formation, informal caucusing, and crisis moderation under pressure.</p>
+            <div class="stat-item">
+                <h3>3</h3>
+                <p>Conference Days</p>
             </div>
-            <div class="card">
-                <span class="badge">Pillar 04</span>
-                <h3>Critical Analysis</h3>
-                <p>Evaluate multifaceted geopolitical conflicts from diverse nation-state perspectives.</p>
+            <div class="stat-item">
+                <h3>12+</h3>
+                <p>Awards & Honors</p>
             </div>
         </div>
     </section>
 
+    <!-- Committees Section -->
     <section id="committees">
-        <h2>Committees</h2>
+        <h2>Featured Committees</h2>
         <div class="grid">
             <div class="card">
-                <h3>UNSC</h3>
-                <p><strong>United Nations Security Council</strong></p>
-                <p>Focusing on international peace maintenance, sovereignty breaches, and immediate crisis management.</p>
+                <h3>UN Security Council</h3>
+                <p style="color: var(--accent-gold); font-weight: 600; font-size: 0.85rem;">CRISIS / DOUBLE DELEGATION</p>
+                <div class="agenda">
+                    <strong>Agenda:</strong> Evaluating Peacekeeping Protocols and Security Threats in Escalating Territorial Conflicts.
+                </div>
             </div>
             <div class="card">
                 <h3>UNGA - DISEC</h3>
-                <p><strong>Disarmament & International Security</strong></p>
-                <p>Addressing global threat reduction, non-proliferation treaties, and cybersecurity governance.</p>
+                <p style="color: var(--accent-gold); font-weight: 600; font-size: 0.85rem;">GENERAL ASSEMBLY</p>
+                <div class="agenda">
+                    <strong>Agenda:</strong> Regulating Autonomous Weapons Systems & Non-Proliferation in Modern Military Frameworks.
+                </div>
             </div>
             <div class="card">
-                <h3>UNHRC</h3>
-                <p><strong>Human Rights Council</strong></p>
-                <p>Protecting fundamental freedoms, refugee rights, and global humanitarian standards.</p>
+                <h3>UN Human Rights Council</h3>
+                <p style="color: var(--accent-gold); font-weight: 600; font-size: 0.85rem;">INTERMEDIATE</p>
+                <div class="agenda">
+                    <strong>Agenda:</strong> Safeguarding Fundamental Rights and Legal Standards for Climate-Displaced Populations.
+                </div>
             </div>
             <div class="card">
                 <h3>Historic Crisis Cabinet</h3>
-                <p><strong>Specialized Agency</strong></p>
-                <p>A fast-paced, interactive simulation altering historical turning points in real time.</p>
+                <p style="color: var(--accent-gold); font-weight: 600; font-size: 0.85rem;">ADVANCED SPECIALIZED</p>
+                <div class="agenda">
+                    <strong>Agenda:</strong> The 1962 Cuban Missile Crisis — Real-time Directive-driven Simulation.
+                </div>
+            </div>
+            <div class="card">
+                <h3>ECOFIN</h3>
+                <p style="color: var(--accent-gold); font-weight: 600; font-size: 0.85rem;">ECONOMIC & FINANCIAL</p>
+                <div class="agenda">
+                    <strong>Agenda:</strong> Reconstructing Debt Sustainability and Financial Resilience in Developing Economies.
+                </div>
+            </div>
+            <div class="card">
+                <h3>International Court of Justice</h3>
+                <p style="color: var(--accent-gold); font-weight: 600; font-size: 0.85rem;">LEGAL / SPECIALIZED</p>
+                <div class="agenda">
+                    <strong>Agenda:</strong> Territorial Sovereignty and Maritime Jurisdictional Claims in International Waters.
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Schedule Section -->
+    <section id="schedule">
+        <h2>Conference Schedule</h2>
+        <div class="schedule-tabs">
+            <button class="tab-btn active" onclick="switchDay(1)">Day 1</button>
+            <button class="tab-btn" onclick="switchDay(2)">Day 2</button>
+            <button class="tab-btn" onclick="switchDay(3)">Day 3</button>
+        </div>
+
+        <div class="schedule-list" id="schedule-content">
+            <!-- Day 1 Content (Default) -->
+            <div class="schedule-item">
+                <div class="schedule-time">08:00 - 09:30 AM</div>
+                <div><strong>Delegate Registration & Breakfast</strong><br><span style="color: var(--text-muted); font-size: 0.85rem;">Main Conference Hall</span></div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">10:00 - 11:30 AM</div>
+                <div><strong>Opening Ceremony & Keynote Address</strong><br><span style="color: var(--text-muted); font-size: 0.85rem;">Auditorium</span></div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">11:45 - 02:00 PM</div>
+                <div><strong>Committee Session I</strong><br><span style="color: var(--text-muted); font-size: 0.85rem;">Respective Committee Rooms</span></div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">03:00 - 06:00 PM</div>
+                <div><strong>Committee Session II</strong><br><span style="color: var(--text-muted); font-size: 0.85rem;">Roll Call & General Speakers List</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secretariat Showcase -->
     <section id="secretariat">
-        <h2>Secretariat</h2>
+        <h2>Secretariat Leadership</h2>
         <div class="grid">
-            <div class="card">
-                <h3>Secretary-General</h3>
-                <p>Overseeing academic rigor, delegate experience, and overall conference strategy.</p>
+            <div class="card" style="text-align: center;">
+                <h3 style="color: var(--accent-gold);">Alexander Wright</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">Secretary-General</p>
+                <p style="font-size: 0.9rem;">Directing conference strategy, diplomatic standards, and overarching execution for LSCMUN '26.</p>
             </div>
-            <div class="card">
-                <h3>Director-General</h3>
-                <p>Managing operational logistics, venue coordination, and external communications.</p>
+            <div class="card" style="text-align: center;">
+                <h3 style="color: var(--accent-gold);">Sophia Chen</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">Director-General</p>
+                <p style="font-size: 0.9rem;">Overseeing operational logistics, delegate relations, and external communications.</p>
             </div>
-            <div class="card">
-                <h3>Under-Secretaries</h3>
-                <p>Leading committee research, study guide publication, and executive board moderation.</p>
+            <div class="card" style="text-align: center;">
+                <h3 style="color: var(--accent-gold);">Marcus Vance</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">USG Substantive Affairs</p>
+                <p style="font-size: 0.9rem;">Managing committee study guides, Dais training, and parliamentary procedure compliance.</p>
             </div>
         </div>
     </section>
 
+    <!-- FAQ Section -->
     <section id="faq">
         <h2>Frequently Asked Questions</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Who can participate?</h3>
-                <p>Delegates from high schools, colleges, and university institutions are eligible to apply.</p>
-            </div>
-            <div class="card">
-                <h3>What is the dress code?</h3>
-                <p>Western Formal / Business Attire is strictly enforced during all committee sessions.</p>
-            </div>
-            <div class="card">
-                <h3>Are individual delegates allowed?</h3>
-                <p>Yes, both independent delegates and school/college delegations are welcome.</p>
-            </div>
+        <div class="faq-item">
+            <div class="faq-question">Who is eligible to participate in LSCMUN? <span>+</span></div>
+            <div class="faq-answer">LSCMUN welcomes high school, college, and undergraduate university students. Independent delegates as well as school delegations can apply.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">What is the required dress code? <span>+</span></div>
+            <div class="faq-answer">Western Business Attire (suits, blazers, formal shirts, ties, formal trousers/dresses) is strictly enforced throughout all committee sessions.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">When will committee study guides be released? <span>+</span></div>
+            <div class="faq-answer">Comprehensive Background Guides and Rules of Procedure (ROP) will be emailed to all registered delegates 30 days prior to the conference.</div>
         </div>
     </section>
 
-    <section id="register">
-        <h2>Register for LSCMUN</h2>
-        <p style="margin-bottom: 1.5rem;">Applications are open for individual delegates and institutional delegations.</p>
-        <a href="mailto:contact@lscmun.org" class="btn">Submit Application</a>
-    </section>
+    <!-- Registration Modal -->
+    <div class="modal" id="regModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Delegate Application</h2>
+            <form id="delegateForm" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Institution / School</label>
+                    <input type="text" required placeholder="Lincoln High School / University">
+                </div>
+                <div class="form-group">
+                    <label>Preferred Committee Choice</label>
+                    <select required>
+                        <option value="">Select a Committee</option>
+                        <option value="UNSC">UN Security Council</option>
+                        <option value="DISEC">UNGA - DISEC</option>
+                        <option value="UNHRC">UN Human Rights Council</option>
+                        <option value="Crisis">Historic Crisis Cabinet</option>
+                        <option value="ECOFIN">ECOFIN</option>
+                        <option value="ICJ">International Court of Justice</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Prior MUN Experience (# of Conferences)</label>
+                    <input type="number" min="0" max="50" placeholder="e.g. 3">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Registration</button>
+            </form>
+        </div>
+    </div>
 
+    <!-- Footer -->
     <footer>
-        <p>Official Website of LSC Model United Nations | <a href="https://lscmun.org">lscmun.org</a></p>
-        <p>© LSCMUN. All rights reserved.</p>
+        <p><strong>LSC Model United Nations '26</strong> | Official Conference Portal</p>
+        <p style="margin-top: 0.5rem;">Contact Secretariat: <a href="mailto:secretariat@lscmun.org">secretariat@lscmun.org</a></p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #475569;">© LSCMUN. All rights reserved.</p>
     </footer>
 
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // FAQ Accordion Toggle
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('open');
+            });
+        });
+
+        // Modal Open / Close
+        function openModal() {
+            document.getElementById('regModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('regModal').style.display = 'none';
+        }
+
+        // Schedule Day Switcher
+        const schedules = {
+            1: [
+                { time: '08:00 - 09:30 AM', title: 'Delegate Registration & Breakfast', loc: 'Main Conference Hall' },
+                { time: '10:00 - 11:30 AM', title: 'Opening Ceremony & Keynote Address', loc: 'Auditorium' },
+                { time: '11:45 - 02:00 PM', title: 'Committee Session I', loc: 'Respective Committee Rooms' },
+                { time: '03:00 - 06:00 PM', title: 'Committee Session II', loc: 'Roll Call & General Speakers List' }
+            ],
+            2: [
+                { time: '09:00 - 12:00 PM', title: 'Committee Session III', loc: 'Unmoderated Caucusing & Working Papers' },
+                { time: '01:00 - 04:00 PM', title: 'Committee Session IV', loc: 'Draft Resolution Authoring' },
+                { time: '04:30 - 07:00 PM', title: 'Crisis Update & Cabinet Session', loc: 'Specialized Committees' }
+            ],
+            3: [
+                { time: '09:30 - 12:30 PM', title: 'Committee Session V', loc: 'Voting Procedure & Final Resolutions' },
+                { time: '02:00 - 04:00 PM', title: 'Closing Ceremony & Award Presentation', loc: 'Main Auditorium' }
+            ]
+        };
+
+        function switchDay(day) {
+            document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+                btn.classList.toggle('active', index + 1 === day);
+            });
+
+            const scheduleContainer = document.getElementById('schedule-content');
+            scheduleContainer.innerHTML = schedules[day].map(item => `
+                <div class="schedule-item">
+                    <div class="schedule-time">${item.time}</div>
+                    <div><strong>${item.title}</strong><br><span style="color: var(--text-muted); font-size: 0.85rem;">${item.loc}</span></div>
+                </div>
+            `).join('');
+        }
+
+        // Form Submission Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for applying to LSCMUN! A confirmation email will be sent shortly.');
+            closeModal();
+            document.getElementById('delegateForm').reset();
+        }
+    </script>
 </body>
 </html>
