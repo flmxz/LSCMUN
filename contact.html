@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us & Venue | LSCMUN '26</title>
+    <title>Contact & Venue | LSCMUN '26</title>
+    
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-dark: #0b0f19;
-            --bg-card: #151c2c;
-            --bg-card-hover: #1e293b;
-            --accent-blue: #2563eb;
-            --accent-blue-hover: #1d4ed8;
-            --accent-gold: #f59e0b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #1e293b;
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --accent-purple: #7c3aed;
+            --accent-purple-hover: #6d28d9;
+            --accent-gold: #d97706;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --nav-bg: rgba(255, 255, 255, 0.92);
         }
 
         * {
@@ -24,187 +28,260 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            padding-bottom: 70px;
         }
 
-        /* Navigation */
-        <nav>
-    <a href="index.html" class="logo">LSC<span>MUN</span></a>
-    <div class="menu-toggle" id="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="committees.html">Committees</a></li>
-        <li><a href="secretariat.html">Secretariat</a></li>
-        <li><a href="resources.html">Resources</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="sponsors.html">Sponsors</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="index.html#register" class="nav-btn">Register Now</a></li>
-    </ul>
-</nav>
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+        }
 
-        /* Layout Container */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--accent-purple); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: color 0.25s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-purple); }
+
+        .nav-btn {
+            background: var(--accent-purple);
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-main);
+            border-radius: 2px;
+        }
+
         section {
-            padding: 4rem 2rem 3rem;
+            padding: 7rem 2rem 3rem;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Page Header */
-        .page-header {
-            text-align: center;
-            padding-top: 8rem;
-            padding-bottom: 2rem;
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
+        h1.page-title {
+            font-size: 2.8rem;
             font-weight: 800;
-            margin-bottom: 0.75rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
         }
 
-        .page-header p {
+        p.page-subtitle {
+            text-align: center;
             color: var(--text-muted);
             font-size: 1.1rem;
-            max-width: 650px;
-            margin: 0 auto;
-        }
-
-        /* Grid Layout */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
             margin-bottom: 3rem;
         }
 
-        .card {
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .contact-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
 
-        .card h2 {
+        .contact-card h2 {
             font-size: 1.5rem;
-            color: var(--accent-gold);
-            margin-bottom: 1.25rem;
+            color: var(--accent-purple);
+            margin-bottom: 1.5rem;
         }
 
-        .info-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .info-group strong {
-            display: block;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .info-group p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* Form Styling */
         .form-group {
             margin-bottom: 1.25rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            margin-bottom: 0.4rem;
             color: var(--text-main);
-            font-size: 0.95rem;
         }
 
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: var(--bg-dark);
+            color: var(--text-main);
             outline: none;
-            border-color: var(--accent-blue);
+            transition: border-color 0.25s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent-purple);
         }
 
         .btn {
-            padding: 0.85rem 1.8rem;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 0.75rem 1.25rem;
             border-radius: 8px;
             font-weight: 600;
             text-decoration: none;
+            font-size: 0.95rem;
             cursor: pointer;
+            transition: all 0.25s ease;
             border: none;
-            font-size: 1rem;
-            transition: all 0.2s;
-            width: 100%;
         }
 
         .btn-primary {
-            background-color: var(--accent-blue);
+            background: var(--accent-purple);
             color: #fff;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
         }
 
         .btn-primary:hover {
-            background-color: var(--accent-blue-hover);
+            background: var(--accent-purple-hover);
         }
 
-        /* Map Placeholder */
-        .map-box {
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+        }
+
+        .info-text h4 {
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .info-text p, .info-text a {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .info-text a:hover {
+            color: var(--accent-purple);
+        }
+
+        .map-frame {
             width: 100%;
             height: 250px;
-            background: var(--bg-dark);
             border: 1px solid var(--border);
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-gold);
-            font-weight: 600;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
-        /* Footer */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            z-index: 999;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .bottom-nav-item:hover { color: var(--accent-purple); }
+
         footer {
             border-top: 1px solid var(--border);
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 3rem 2rem 5rem;
             margin-top: 5rem;
             color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        footer a {
-            color: var(--accent-gold);
-            text-decoration: none;
-        }
+        footer a { color: var(--accent-purple); text-decoration: none; font-weight: 600; }
 
-        @media (max-width: 900px) {
-            .contact-grid {
+        @media (max-width: 868px) {
+            .contact-container {
                 grid-template-columns: 1fr;
             }
-        }
-
-        @media (max-width: 768px) {
             .nav-links {
                 display: none;
                 flex-direction: column;
@@ -216,20 +293,15 @@
                 padding: 1.5rem;
                 border-bottom: 1px solid var(--border);
             }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
+    <canvas id="particle-canvas"></canvas>
+
     <nav>
         <a href="index.html" class="logo">LSC<span>MUN</span></a>
         <div class="menu-toggle" id="mobile-menu">
@@ -238,124 +310,168 @@
             <span></span>
         </div>
         <ul class="nav-links" id="nav-links">
-            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="committees.html">Committees</a></li>
-            <li><a href="index.html#schedule">Schedule</a></li>
             <li><a href="secretariat.html">Secretariat</a></li>
+            <li><a href="resources.html">Resources</a></li>
             <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="sponsors.html">Sponsors</a></li>
             <li><a href="contact.html" class="active">Contact</a></li>
-            <li><a href="index.html#register" class="nav-btn">Register Now</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="index.html#about" class="nav-btn">Register Now</a></li>
         </ul>
     </nav>
 
-    <!-- Header -->
-    <div class="page-header">
-        <h1>Contact & Conference Venue</h1>
-        <p>Get in touch with the Secretariat or find key details regarding event location and delegate assistance.</p>
-    </div>
-
     <section>
-        <div class="contact-grid">
-            
-            <!-- Left Side: Venue & Contact Channels -->
-            <div>
-                <div class="card" style="margin-bottom: 1.5rem;">
-                    <h2>Conference Venue</h2>
-                    <div class="info-group">
-                        <strong>LSC Conference Center</strong>
-                        <p>Building 109, Academic Block A<br>Main Campus, Road 7307<br>Kingdom of Bahrain</p>
-                    </div>
-                    <div class="info-group">
-                        <strong>Transport & Directions</strong>
-                        <p>Bus routes 12 & 15 stop directly outside Gate 2. Parking is available on-site for registered faculty advisors and institutional delegations.</p>
-                    </div>
-                    
-                    <div class="map-box">
-                        [ Interactive Map Preview ]
-                    </div>
-                </div>
+        <h1 class="page-title" data-aos="fade-down">Get in Touch</h1>
+        <p class="page-subtitle" data-aos="fade-up">Have questions regarding registration, committee allocations, or partnerships?</p>
 
-                <div class="card">
-                    <h2>Direct Communication Channels</h2>
-                    <div class="info-group">
-                        <strong>General Secretariat</strong>
-                        <p><a href="mailto:secretariat@lscmun.org" style="color: var(--accent-gold); text-decoration: none;">secretariat@lscmun.org</a></p>
+        <div class="contact-container">
+            
+            <!-- Contact Form -->
+            <div class="contact-card" data-aos="fade-right">
+                <h2>Send Us a Message</h2>
+                <form onsubmit="handleForm(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required placeholder="John Doe">
                     </div>
-                    <div class="info-group">
-                        <strong>Delegate & Registration Affairs</strong>
-                        <p><a href="mailto:registration@lscmun.org" style="color: var(--accent-gold); text-decoration: none;">registration@lscmun.org</a></p>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required placeholder="john@example.com">
                     </div>
-                    <div class="info-group">
-                        <strong>Academics & Committee Questions</strong>
-                        <p><a href="mailto:academics@lscmun.org" style="color: var(--accent-gold); text-decoration: none;">academics@lscmun.org</a></p>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" required placeholder="Delegate Registration Query">
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" required placeholder="Write your inquiry here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
             </div>
 
-            <!-- Right Side: Contact Form -->
-            <div class="card">
-                <h2>Send an Inquiry</h2>
-                <form onsubmit="handleInquirySubmit(event)">
-                    <div class="form-group">
-                        <label>Your Full Name</label>
-                        <input type="text" required placeholder="John Doe">
+            <!-- Contact Details & Map -->
+            <div class="contact-card" data-aos="fade-left">
+                <h2>Conference Secretariat</h2>
+                
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-text">
+                        <h4>Venue Location</h4>
+                        <p>Department of Life Sciences<br>Christ University Central Campus, Hosur Road, Bengaluru, Karnataka 560029</p>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" required placeholder="john@example.com">
+                <div class="info-item">
+                    <div class="info-icon">✉️</div>
+                    <div class="info-text">
+                        <h4>Email Correspondence</h4>
+                        <p><a href="mailto:lscmun.26@gmail.com">lscmun.26@gmail.com</a></p>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label>Inquiry Category</label>
-                        <select required>
-                            <option value="">Select a Category</option>
-                            <option value="Registration">Delegate / Delegation Registration</option>
-                            <option value="Committees">Committee / Country Matrix Query</option>
-                            <option value="Sponsorship">Sponsorship & Press</option>
-                            <option value="Other">General Question</option>
-                        </select>
+                <div class="info-item">
+                    <div class="info-icon">🌐</div>
+                    <div class="info-text">
+                        <h4>Social Handles</h4>
+                        <p>Instagram: @lscmun2026</p>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label>Subject</label>
-                        <input type="text" required placeholder="e.g. Matrix Allocation Question">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Your Message</label>
-                        <textarea rows="5" required placeholder="Type your detailed message here..."></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Submit Inquiry</button>
-                </form>
+                <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.751233068038!2d77.60443207507567!3d12.936551987375253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15b277a93807%3A0xd411624838634e56!2sCHRIST%20(Deemed%20to%20be%20University)!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
             </div>
 
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Sticky Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <span>🏠</span> Home
+        </a>
+        <a href="committees.html" class="bottom-nav-item">
+            <span>🏛️</span> Councils
+        </a>
+        <a href="contact.html" class="bottom-nav-item">
+            <span>📍</span> Location
+        </a>
+        <a href="mailto:lscmun.26@gmail.com" class="bottom-nav-item">
+            <span>✉️</span> Contact
+        </a>
+    </div>
+
     <footer>
-        <p><strong>LSC Model United Nations '26</strong> | Official Conference Portal</p>
-        <p style="margin-top: 0.5rem;">Need urgent assistance? Contact <a href="mailto:secretariat@lscmun.org">secretariat@lscmun.org</a></p>
-        <p style="margin-top: 1rem; font-size: 0.8rem; color: #475569;">© LSCMUN. All rights reserved.</p>
+        <p><strong>Life Sciences Model United Nations '26</strong></p>
+        <p style="margin-top: 0.4rem;">Department of Life Sciences • Christ University Central Campus, Bangalore</p>
+        <p style="margin-top: 0.4rem;">Contact: <a href="mailto:lscmun.26@gmail.com">lscmun.26@gmail.com</a></p>
+        <p style="margin-top: 1.5rem; font-size: 0.8rem; color: #94a3b8;">© LSCMUN '26. All rights reserved.</p>
     </footer>
 
-    <!-- Interactive JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Mobile Navigation Toggle
+        AOS.init({ duration: 800, once: true });
+
         const menuToggle = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
 
-        // Form Submit Handler
-        function handleInquirySubmit(event) {
-            event.preventDefault();
-            alert('Your inquiry has been submitted! The LSCMUN team will respond via email within 24 hours.');
-            event.target.reset();
+        function handleForm(e) {
+            e.preventDefault();
+            alert('Thank you for reaching out! The LSCMUN Secretariat will respond to your email shortly.');
+            e.target.reset();
         }
+
+        // Particle Canvas
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(124, 58, 237, 0.25)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 45; i++) particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
     </script>
 </body>
 </html>
