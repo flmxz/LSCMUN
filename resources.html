@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delegate Resources | LSCMUN '26</title>
+    <title>Resources | LSCMUN '26</title>
+    
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-dark: #0b0f19;
-            --bg-card: #151c2c;
-            --bg-card-hover: #1e293b;
-            --accent-blue: #2563eb;
-            --accent-blue-hover: #1d4ed8;
-            --accent-gold: #f59e0b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #1e293b;
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --accent-purple: #7c3aed;
+            --accent-purple-hover: #6d28d9;
+            --accent-gold: #d97706;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --nav-bg: rgba(255, 255, 255, 0.92);
         }
 
         * {
@@ -24,184 +28,220 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            padding-bottom: 70px;
         }
 
-        /* Navigation */
-<nav>
-    <a href="index.html" class="logo">LSC<span>MUN</span></a>
-    <div class="menu-toggle" id="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="committees.html">Committees</a></li>
-        <li><a href="secretariat.html">Secretariat</a></li>
-        <li><a href="resources.html">Resources</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="sponsors.html">Sponsors</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="index.html#register" class="nav-btn">Register Now</a></li>
-    </ul>
-</nav>
-
-        /* Layout Container */
-        section {
-            padding: 4rem 2rem 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
         }
 
-        /* Page Header */
-        .page-header {
-            text-align: center;
-            padding-top: 8rem;
-            padding-bottom: 2rem;
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
-        .page-header h1 {
-            font-size: 3rem;
+        .logo {
+            font-size: 1.4rem;
             font-weight: 800;
-            margin-bottom: 0.75rem;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-decoration: none;
         }
 
-        .page-header p {
+        .logo span { color: var(--accent-purple); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 650px;
-            margin: 0 auto;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: color 0.25s ease;
         }
 
-        /* Section Titles */
-        h2.section-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-purple); }
+
+        .nav-btn {
+            background: var(--accent-purple);
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
         }
 
-        h2.section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
             height: 3px;
-            background: var(--accent-gold);
-            margin-top: 0.5rem;
+            background: var(--text-main);
             border-radius: 2px;
         }
 
-        /* Cards Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+        section {
+            padding: 7rem 2rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1.page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        p.page-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
             margin-bottom: 3rem;
         }
 
-        .card {
+        .section-header {
+            text-align: center;
+            margin: 3rem 0 2rem;
+            font-size: 1.8rem;
+            color: var(--accent-purple);
+            font-weight: 700;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .resource-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 1.75rem;
-            transition: transform 0.25s, border-color 0.25s;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-blue);
-            background: var(--bg-card-hover);
+        .resource-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 12px 24px rgba(124, 58, 237, 0.12);
         }
 
-        .card h3 {
-            font-size: 1.25rem;
-            color: var(--accent-gold);
-            margin-bottom: 0.75rem;
+        .icon-box {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
-        .card p {
-            color: var(--text-muted);
+        .resource-card h3 {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card p {
             font-size: 0.9rem;
-            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
         }
 
-        /* Buttons */
         .btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
+            display: inline-block;
+            text-align: center;
+            padding: 0.65rem 1.2rem;
+            border-radius: 8px;
             font-weight: 600;
             text-decoration: none;
-            cursor: pointer;
             font-size: 0.88rem;
-            transition: all 0.2s;
-            border: none;
-            display: inline-block;
+            cursor: pointer;
+            transition: all 0.25s ease;
         }
 
         .btn-primary {
-            background-color: var(--accent-blue);
+            background: var(--accent-purple);
             color: #fff;
+            border: none;
         }
 
         .btn-primary:hover {
-            background-color: var(--accent-blue-hover);
+            background: var(--accent-purple-hover);
         }
 
-        .btn-outline {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--border);
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            z-index: 999;
         }
 
-        .btn-outline:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--text-muted);
-        }
-
-        /* Submission Box */
-        .submission-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2.5rem;
-            text-align: center;
-        }
-
-        .submission-box h2 {
-            font-size: 1.75rem;
-            color: var(--text-main);
-            margin-bottom: 0.75rem;
-        }
-
-        .submission-box p {
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
             color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
-        /* Footer */
+        .bottom-nav-item:hover { color: var(--accent-purple); }
+
         footer {
             border-top: 1px solid var(--border);
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 3rem 2rem 5rem;
             margin-top: 5rem;
             color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        footer a {
-            color: var(--accent-gold);
-            text-decoration: none;
-        }
+        footer a { color: var(--accent-purple); text-decoration: none; font-weight: 600; }
 
         @media (max-width: 768px) {
             .nav-links {
@@ -215,20 +255,15 @@
                 padding: 1.5rem;
                 border-bottom: 1px solid var(--border);
             }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
+    <canvas id="particle-canvas"></canvas>
+
     <nav>
         <a href="index.html" class="logo">LSC<span>MUN</span></a>
         <div class="menu-toggle" id="mobile-menu">
@@ -237,90 +272,192 @@
             <span></span>
         </div>
         <ul class="nav-links" id="nav-links">
-            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="committees.html">Committees</a></li>
             <li><a href="secretariat.html">Secretariat</a></li>
             <li><a href="resources.html" class="active">Resources</a></li>
             <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="sponsors.html">Sponsors</a></li>
             <li><a href="contact.html">Contact</a></li>
-            <li><a href="index.html#register" class="nav-btn">Register Now</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="index.html#about" class="nav-btn">Register Now</a></li>
         </ul>
     </nav>
 
-    <!-- Header -->
-    <div class="page-header">
-        <h1>Delegate Preparation Hub</h1>
-        <p>Access background guides, parliamentary procedure rules, position paper templates, and research databases.</p>
-    </div>
-
     <section>
-        <!-- Core Guides -->
-        <h2 class="section-title">Essential Documents</h2>
+        <h1 class="page-title" data-aos="fade-down">Delegate Resources</h1>
+        <p class="page-subtitle" data-aos="fade-up">Access study guides, rules of procedure, and position paper templates.</p>
+
+        <div class="section-header" data-aos="fade-up">General Documents</div>
+
         <div class="grid">
-            <div class="card">
-                <h3>Rules of Procedure (ROP)</h3>
-                <p>Comprehensive guide covering points, motions, caucus flow, resolution mechanics, and voting procedures.</p>
-                <a href="#" class="btn btn-primary" onclick="alert('Downloading ROP PDF...')">Download ROP (PDF)</a>
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="icon-box">📜</div>
+                    <h3>Rules of Procedure (ROP)</h3>
+                    <p>Comprehensive guide on parliamentary procedures, motions, and points of order for LSCMUN '26.</p>
+                </div>
+                <a href="#" class="btn btn-primary">Download PDF</a>
             </div>
 
-            <div class="card">
-                <h3>Position Paper Guide</h3>
-                <p>Standardized format requirements, research guidelines, and submission instructions for award eligibility.</p>
-                <a href="#" class="btn btn-primary" onclick="alert('Downloading Position Paper Guide...')">Download Guide (PDF)</a>
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="200">
+                <div>
+                    <div class="icon-box">📝</div>
+                    <h3>Position Paper Template</h3>
+                    <p>Official formatting guidelines and template required for delegate position paper submissions.</p>
+                </div>
+                <a href="#" class="btn btn-primary">Download Docx</a>
             </div>
 
-            <div class="card">
-                <h3>Resolution Writing Guide</h3>
-                <p>Learn how to draft preambulatory and operative clauses, amendments, and working papers.</p>
-                <a href="#" class="btn btn-primary" onclick="alert('Downloading Writing Guide...')">Download Guide (PDF)</a>
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="300">
+                <div>
+                    <div class="icon-box">🏛️</div>
+                    <h3>Delegate Handbook</h3>
+                    <p>Essential information covering code of conduct, venue logistics, and conference schedules.</p>
+                </div>
+                <a href="#" class="btn btn-primary">Download PDF</a>
             </div>
         </div>
 
-        <!-- Research Links -->
-        <h2 class="section-title">Recommended Research Portals</h2>
+        <div class="section-header" data-aos="fade-up">Background Guides</div>
+
         <div class="grid">
-            <div class="card">
-                <h3>UN Digital Library</h3>
-                <p>Access official UN documents, voting records, and historical resolution archives.</p>
-                <a href="https://digitallibrary.un.org" target="_blank" class="btn btn-outline">Visit Portal External Site</a>
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="icon-box">🔬</div>
+                    <h3>WCC Study Guide</h3>
+                    <p>Human-Wildlife Conflict & One Health Frameworks.</p>
+                </div>
+                <a href="#" class="btn btn-primary">Download BG</a>
             </div>
 
-            <div class="card">
-                <h3>UN Member State Profiles</h3>
-                <p>Review foreign policy stances, bilateral agreements, and official state statements.</p>
-                <a href="https://www.un.org/en/about-us/member-states" target="_blank" class="btn btn-outline">Visit Portal External Site</a>
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="150">
+                <div>
+                    <div class="icon-box">🩺</div>
+                    <h3>WHO Study Guide</h3>
+                    <p>Pandemic Preparedness & Antimicrobial Resistance.</p>
+                </div>
+                <a href="#" class="btn btn-primary">Download BG</a>
             </div>
 
-            <div class="card">
-                <h3>ICJ Case Law Archive</h3>
-                <p>Essential reading material for legal delegates and Court of Justice participants.</p>
-                <a href="https://www.icj-cij.org/cases" target="_blank" class="btn btn-outline">Visit Portal External Site</a>
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="200">
+                <div>
+                    <div class="icon-box">🌱</div>
+                    <h3>UNEP Study Guide</h3>
+                    <p>Global Treaty on Plastic Pollution & Microplastics.</p>
+                </div>
+                <a href="#" class="btn btn-primary">Download BG</a>
             </div>
-        </div>
 
-        <!-- Position Paper Submission -->
-        <div class="submission-box">
-            <h2>Position Paper Submission Portal</h2>
-            <p>Position papers are required for all delegates seeking Best Delegate awards. Submissions close 7 days prior to Day 1 of the conference.</p>
-            <a href="mailto:academics@lscmun.org?subject=Position Paper Submission - [Delegate Name]" class="btn btn-primary">Submit Position Paper via Email</a>
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="250">
+                <div>
+                    <div class="icon-box">🌍</div>
+                    <h3>UNFCCC Study Guide</h3>
+                    <p>Nationally Determined Contributions & Nature-Based Solutions.</p>
+                </div>
+                <a href="#" class="btn btn-primary">Download BG</a>
+            </div>
+
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="300">
+                <div>
+                    <div class="icon-box">⚖️</div>
+                    <h3>UNODC Study Guide</h3>
+                    <p>Trafficking of Hazardous Biological Materials & Eco-Crime.</p>
+                </div>
+                <a href="#" class="btn btn-primary">Download BG</a>
+            </div>
+
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="350">
+                <div>
+                    <div class="icon-box">⚛️</div>
+                    <h3>IAEA Study Guide</h3>
+                    <p>Nuclear Medicine Technologies & Bio-Waste Governance.</p>
+                </div>
+                <a href="#" class="btn btn-primary">Download BG</a>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Sticky Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <span>🏠</span> Home
+        </a>
+        <a href="committees.html" class="bottom-nav-item">
+            <span>🏛️</span> Councils
+        </a>
+        <a href="contact.html" class="bottom-nav-item">
+            <span>📍</span> Location
+        </a>
+        <a href="mailto:lscmun.26@gmail.com" class="bottom-nav-item">
+            <span>✉️</span> Contact
+        </a>
+    </div>
+
     <footer>
-        <p><strong>LSC Model United Nations '26</strong> | Official Conference Portal</p>
-        <p style="margin-top: 0.5rem;">Academic queries: <a href="mailto:academics@lscmun.org">academics@lscmun.org</a></p>
-        <p style="margin-top: 1rem; font-size: 0.8rem; color: #475569;">© LSCMUN. All rights reserved.</p>
+        <p><strong>Life Sciences Model United Nations '26</strong></p>
+        <p style="margin-top: 0.4rem;">Department of Life Sciences • Christ University Central Campus, Bangalore</p>
+        <p style="margin-top: 0.4rem;">Contact: <a href="mailto:lscmun.26@gmail.com">lscmun.26@gmail.com</a></p>
+        <p style="margin-top: 1.5rem; font-size: 0.8rem; color: #94a3b8;">© LSCMUN '26. All rights reserved.</p>
     </footer>
 
-    <!-- Interactive JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Mobile Navigation Toggle
+        AOS.init({ duration: 800, once: true });
+
         const menuToggle = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+
+        // Particle Canvas
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(124, 58, 237, 0.25)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 45; i++) particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
     </script>
 </body>
 </html>
