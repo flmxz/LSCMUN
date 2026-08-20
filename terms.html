@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms & Code of Conduct | LSCMUN '26</title>
+    <title>Terms & Conditions | LSCMUN '26</title>
+    
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-dark: #0b0f19;
-            --bg-card: #151c2c;
-            --bg-card-hover: #1e293b;
-            --accent-blue: #2563eb;
-            --accent-blue-hover: #1d4ed8;
-            --accent-gold: #f59e0b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #1e293b;
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --accent-purple: #7c3aed;
+            --accent-purple-hover: #6d28d9;
+            --accent-gold: #d97706;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --nav-bg: rgba(255, 255, 255, 0.92);
         }
 
         * {
@@ -24,118 +28,182 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
+            padding-bottom: 70px;
         }
 
-        /* Navigation */
-       <nav>
-    <a href="index.html" class="logo">LSC<span>MUN</span></a>
-    <div class="menu-toggle" id="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="committees.html">Committees</a></li>
-        <li><a href="secretariat.html">Secretariat</a></li>
-        <li><a href="resources.html">Resources</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="sponsors.html">Sponsors</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="index.html#register" class="nav-btn">Register Now</a></li>
-    </ul>
-</nav>
-
-        /* Layout Container */
-        section {
-            padding: 4rem 2rem 3rem;
-            max-width: 1000px;
-            margin: 0 auto;
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
         }
 
-        /* Page Header */
-        .page-header {
-            text-align: center;
-            padding-top: 8rem;
-            padding-bottom: 2rem;
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
-        .page-header h1 {
-            font-size: 3rem;
+        .logo {
+            font-size: 1.4rem;
             font-weight: 800;
-            margin-bottom: 0.75rem;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-decoration: none;
         }
 
-        .page-header p {
+        .logo span { color: var(--accent-purple); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 650px;
-            margin: 0 auto;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: color 0.25s ease;
         }
 
-        /* Content Card */
-        .policy-card {
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-purple); }
+
+        .nav-btn {
+            background: var(--accent-purple);
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-main);
+            border-radius: 2px;
+        }
+
+        section {
+            padding: 7rem 2rem 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1.page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        p.page-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .terms-content {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .terms-section {
             margin-bottom: 2rem;
         }
 
-        .policy-card h2 {
-            font-size: 1.5rem;
-            color: var(--accent-gold);
-            margin-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5rem;
+        .terms-section h2 {
+            font-size: 1.25rem;
+            color: var(--accent-purple);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
         }
 
-        .policy-card p {
+        .terms-section p, .terms-section ul {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
-        .policy-card ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
+        .terms-section ul {
+            padding-left: 1.5rem;
+        }
+
+        .terms-section li {
+            margin-bottom: 0.4rem;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            z-index: 999;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
             color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
-        .policy-card li {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
+        .bottom-nav-item:hover { color: var(--accent-purple); }
 
-        .policy-card strong {
-            color: var(--text-main);
-        }
-
-        /* Footer */
         footer {
             border-top: 1px solid var(--border);
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 3rem 2rem 5rem;
             margin-top: 5rem;
             color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        footer a {
-            color: var(--accent-gold);
-            text-decoration: none;
-        }
+        footer a { color: var(--accent-purple); text-decoration: none; font-weight: 600; }
 
         @media (max-width: 768px) {
             .nav-links {
@@ -149,20 +217,15 @@
                 padding: 1.5rem;
                 border-bottom: 1px solid var(--border);
             }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
+    <canvas id="particle-canvas"></canvas>
+
     <nav>
         <a href="index.html" class="logo">LSC<span>MUN</span></a>
         <div class="menu-toggle" id="mobile-menu">
@@ -171,80 +234,134 @@
             <span></span>
         </div>
         <ul class="nav-links" id="nav-links">
-            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="committees.html">Committees</a></li>
             <li><a href="secretariat.html">Secretariat</a></li>
             <li><a href="resources.html">Resources</a></li>
             <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="sponsors.html">Sponsors</a></li>
             <li><a href="contact.html">Contact</a></li>
-            <li><a href="index.html#register" class="nav-btn">Register Now</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="index.html#about" class="nav-btn">Register Now</a></li>
         </ul>
     </nav>
 
-    <!-- Header -->
-    <div class="page-header">
-        <h1>Terms & Code of Conduct</h1>
-        <p>Conference guidelines, delegate behavioral expectations, and administrative terms of service.</p>
-    </div>
-
     <section>
-        <!-- Code of Conduct -->
-        <div class="policy-card">
-            <h2>01. Delegate Code of Conduct</h2>
-            <p>LSCMUN is committed to creating a respectful, diplomatic, and inclusive environment. All delegates, faculty advisors, and observers are required to adhere to the following standards:</p>
-            <ul>
-                <li><strong>Diplomatic Decorum:</strong> Delegates must treat Dais members, conference staff, and fellow participants with mutual respect at all times. Personal attacks or derogatory language will result in immediate disciplinary action.</li>
-                <li><strong>Dress Code:</strong> Western Business Attire (WBA) or formal traditional national dress is mandatory during all committee sessions.</li>
-                <li><strong>Substance Policy:</strong> The possession or consumption of alcohol, tobacco, e-cigarettes, or illicit substances on conference premises is strictly prohibited and subject to immediate expulsion.</li>
-            </ul>
-        </div>
+        <h1 class="page-title" data-aos="fade-down">Terms & Policies</h1>
+        <p class="page-subtitle" data-aos="fade-up">Effective August 2026 • Life Sciences Model United Nations Secretariat</p>
 
-        <!-- Academic Integrity -->
-        <div class="policy-card">
-            <h2>02. Academic Integrity & Plagiarism</h2>
-            <p>LSCMUN upholds strict academic standards regarding delegate work and submissions:</p>
-            <ul>
-                <li><strong>Original Work:</strong> All position papers, working papers, and draft resolutions must be the original work of the submitting delegate or delegation bloc.</li>
-                <li><strong>Plagiarism & AI Policy:</strong> Unattributed copying, pre-written resolutions drafted prior to the conference, or uncredited AI-generated text will lead to immediate disqualification from award eligibility.</li>
-            </ul>
-        </div>
+        <div class="terms-content" data-aos="fade-up">
+            <div class="terms-section">
+                <h2>1. Code of Conduct</h2>
+                <p>All delegates, chairs, and observers participating in LSCMUN '26 must adhere to the highest standards of diplomatic courtesy and respect. Plagiarism, offensive language, or harassment in any form will lead to immediate disqualification without refund.</p>
+            </div>
 
-        <!-- Registration & Cancellation -->
-        <div class="policy-card">
-            <h2>03. Registration & Fee Policies</h2>
-            <p>Terms governing conference registration, matrix allocations, and cancellations:</p>
-            <ul>
-                <li><strong>Country Allotments:</strong> Committee and country assignments are allocated at the discretion of the Secretariat based on experience and submission timeliness.</li>
-                <li><strong>Refunds & Transfers:</strong> Registration fees are non-refundable after the official registration deadline. Delegation transfers must be requested in writing at least 14 days prior to Day 1.</li>
-            </ul>
-        </div>
+            <div class="terms-section">
+                <h2>2. Registration & Allocations</h2>
+                <ul>
+                    <li>Committee allocations are strictly granted at the discretion of the Secretariat upon receipt of complete registration and fee verification.</li>
+                    <li>Country matrix assignments are final once confirmed via official email.</li>
+                    <li>Delegates must present a valid institutional photo ID during physical badge collection on Day 1.</li>
+                </ul>
+            </div>
 
-        <!-- Media & Privacy -->
-        <div class="policy-card">
-            <h2>04. Media Release & Privacy</h2>
-            <p>By participating in LSCMUN '26, delegates grant permission for media coverage:</p>
-            <ul>
-                <li><strong>Photography & Video:</strong> Official media staff will photograph and record committee proceedings for promotional and archival use on official channels.</li>
-                <li><strong>Data Privacy:</strong> Delegate contact details provided during registration are strictly used for conference administration and will not be shared with third parties without prior consent.</li>
-            </ul>
+            <div class="terms-section">
+                <h2>3. Cancellation & Refund Policy</h2>
+                <p>All registration fees paid towards LSCMUN '26 are non-refundable under any circumstances. In case of delegate substitution, written requests must be sent to <a href="mailto:lscmun.26@gmail.com" style="color:var(--accent-purple);">lscmun.26@gmail.com</a> at least 10 days prior to the conference date.</p>
+            </div>
+
+            <div class="terms-section">
+                <h2>4. Intellectual Property & Media Rights</h2>
+                <p>By attending the conference, delegates consent to photography, video recording, and press coverage by official LSCMUN media partners. All material produced during committee sessions (resolutions, working papers, position papers) becomes public conference property.</p>
+            </div>
+
+            <div class="terms-section">
+                <h2>5. Campus Rules & Security</h2>
+                <p>Participants must abide by the rules of Christ University Central Campus. Alcohol, tobacco, or restricted substances are strictly prohibited on campus grounds. Any violation will result in removal from the venue and reporting to institutional authorities.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Sticky Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <span>🏠</span> Home
+        </a>
+        <a href="committees.html" class="bottom-nav-item">
+            <span>🏛️</span> Councils
+        </a>
+        <a href="contact.html" class="bottom-nav-item">
+            <span>📍</span> Location
+        </a>
+        <a href="mailto:lscmun.26@gmail.com" class="bottom-nav-item">
+            <span>✉️</span> Contact
+        </a>
+    </div>
+
     <footer>
-        <p><strong>LSC Model United Nations '26</strong> | Official Conference Portal</p>
-        <p style="margin-top: 0.5rem;">Legal & Policy Enquiries: <a href="mailto:secretariat@lscmun.org">secretariat@lscmun.org</a></p>
-        <p style="margin-top: 1rem; font-size: 0.8rem; color: #475569;">© LSCMUN. All rights reserved.</p>
+        <p><strong>Life Sciences Model United Nations '26</strong></p>
+        <p style="margin-top: 0.4rem;">Department of Life Sciences • Christ University Central Campus, Bangalore</p>
+        <p style="margin-top: 0.4rem;">Contact: <a href="mailto:lscmun.26@gmail.com">lscmun.26@gmail.com</a> | <a href="terms.html">Terms & Policies</a></p>
+        <p style="margin-top: 1.5rem; font-size: 0.8rem; color: #94a3b8;">© LSCMUN '26. All rights reserved.</p>
     </footer>
 
-    <!-- Interactive JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Mobile Navigation Toggle
+        AOS.init({ duration: 800, once: true });
+
         const menuToggle = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+
+        // Particle Canvas
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(124, 58, 237, 0.25)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 45; i++) particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
     </script>
 </body>
 </html>
